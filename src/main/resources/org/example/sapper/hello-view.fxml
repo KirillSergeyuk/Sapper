@@ -8,10 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.sapper.HelloController">
    <children>
-      <GridPane layoutY="161.0" prefHeight="600.0" prefWidth="600.0">
+      <GridPane fx:id="grid" layoutY="161.0" prefHeight="600.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -141,7 +140,7 @@
       </GridPane>
       <AnchorPane prefHeight="162.0" prefWidth="600.0">
          <children>
-            <Button layoutX="470.0" layoutY="41.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="99.0" text="Reset" />
+            <Button layoutX="470.0" layoutY="41.0" mnemonicParsing="false" onAction="#reset" prefHeight="81.0" prefWidth="99.0" text="Reset" />
             <Text layoutX="56.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SAPPER" textAlignment="CENTER" wrappingWidth="369.13671875">
                <font>
                   <Font name="Passion One Regular" size="96.0" />

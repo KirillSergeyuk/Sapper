@@ -2,21 +2,31 @@ package org.example.sapper;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 public class HelloController {
-
-
+    @FXML
+    private GridPane grid;
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    private int countPoints = 0;
 
     private boolean isGame = true;
 
@@ -40,10 +50,16 @@ public class HelloController {
         int rowIndex = GridPane.getRowIndex(btn) == null ? 0 : GridPane.getRowIndex(btn);
         int columnIndex = GridPane.getColumnIndex(btn) == null ? 0 : GridPane.getColumnIndex(btn);
         if(isBomb(rowIndex,columnIndex)){
-            System.out.println(1);
-            lose();
-        }   else{
-            btn.setText(String.valueOf(numNearBomb(rowIndex,columnIndex)));
+                System.out.println(1);
+                lose();
+        }   else if(btn.getText().isEmpty()) {
+            btn.setText(String.valueOf(numNearBomb(rowIndex, columnIndex)));
+            btn.setStyle("-fx-background-color: gray");
+            countPoints++;
+            System.out.println(countPoints);
+            if(countPoints == 88){
+                win();
+            }
         }
     }
 
@@ -101,7 +117,6 @@ public class HelloController {
         if(!isBeyond(x - 1, y - 1)){
             if(isBomb(x - 1,y - 1)) nearBombs++;
         }
-        System.out.println(nearBombs);
         return nearBombs;
     }
 
@@ -109,5 +124,36 @@ public class HelloController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "You LOSER!!!");
         alert.showAndWait();
         isGame = false;
+    }
+
+    public void win(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "You WINNER!!!");
+        alert.showAndWait();
+        isGame = false;
+    }
+
+    public void reset(){
+        ObservableList<Node> btns = grid.getChildren();
+        for(Node i: btns){
+            Button btn = (Button) i;
+            btn.setText("");
+            btn.setStyle("-fx-background-color: white");
+            btn.setStyle("-fx-border: 3");
+        }
+        gameField = new char[][]{
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+                {' ',' ',' ',' ',' ',' ',' ',' ',' ',' '}
+        };
+        bombs();
+        countPoints = 0;
+        isGame = true;
     }
 }
