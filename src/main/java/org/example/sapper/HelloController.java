@@ -50,7 +50,9 @@ public class HelloController {
         int rowIndex = GridPane.getRowIndex(btn) == null ? 0 : GridPane.getRowIndex(btn);
         int columnIndex = GridPane.getColumnIndex(btn) == null ? 0 : GridPane.getColumnIndex(btn);
         if(isBomb(rowIndex,columnIndex)){
-                System.out.println(1);
+                btn.setStyle("-fx-background-color: red; " +
+                        " -fx-font-size: 10px");
+                btn.setText("BOOM!!!");
                 lose();
         }   else if(btn.getText().isEmpty()) {
             btn.setText(String.valueOf(numNearBomb(rowIndex, columnIndex)));
